@@ -6,10 +6,11 @@ function dfgit {
    /usr/bin/git --git-dir="${HOME}/${mydir}/" --work-tree="${HOME}" $@
 }
 
-# Clone using https so we don't require an ssh key to be registered
+# Using https so we can clone and pull anoynymously
 git clone --bare "${myrepo_https}" "${HOME}/${mydir}"
 
-# Add SSH remote, set to default push
+# Add SSH remote, set to default push, in case we want to push changes later.
+# This will require an SSH public key to be registered with GH.
 dfgit remote add origin-ssh ${myrepo_ssh} 
 dfgit config remote.pushdefault origin-ssh
 
@@ -23,4 +24,5 @@ if [ $? = 0 ]; then
     dfgit checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} ~/.dotfiles-backup/{}
 fi;
 dfgit checkout
+
 # dfgit config status.showUntrackedFiles no
