@@ -1,4 +1,4 @@
-myrepo=https://github.com/erniedotson/dotfiles.git
+myrepo=git@github.com:erniedotson/dotfiles.git
 mydir=.dotfiles
 
 git clone --bare "${myrepo}" "${HOME}"/${mydir}
