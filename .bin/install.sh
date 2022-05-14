@@ -42,6 +42,5 @@ if [ -f ~/.zshrc ]; then
     echo "Adding alias to ~/.zshrc"
     grep -qxF "${myaliasstring}" ~/.zshrc || echo "${myaliasstring}" >> ~/.zshrc
 fi
-
 echo "Add the following alias to other shell profile scripts:"
 echo "  alias dfgit='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
