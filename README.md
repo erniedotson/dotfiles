@@ -22,7 +22,7 @@ So, not so complicated afterall.
 
 ### Installation
 
-On a new system...
+On a new system run this command:
 
 ```bash
 curl -Lks https://raw.githubusercontent.com/erniedotson/dotfiles/master/.bin/install.sh | /bin/bash
@@ -34,6 +34,8 @@ This will attempt to:
 - checkout the files to `$HOME`
   - If existing dotfiles are found, they will be copied to `~/.dotfiles-backup/`
 - update `~/.bashrc` and `~.zshrc` files with `dfgit` alias.
+
+Log out and back in for your new dotfiles to be loaded.
 
 ### Tracking dotfiles
 
