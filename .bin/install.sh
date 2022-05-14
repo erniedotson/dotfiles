@@ -2,6 +2,11 @@ myrepo_https=https://github.com/erniedotson/dotfiles.git
 myrepo_ssh=git@github.com:erniedotson/dotfiles.git
 mydir=.dotfiles
 
+# Alias, as it should appear in the file:
+#   alias dfgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# NOTE: Careful with escape characters in strings below.
+myaliasstring="alias dfgit='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
+
 function dfgit {
    /usr/bin/git --git-dir="${HOME}/${mydir}/" --work-tree="${HOME}" $@
 }
@@ -25,4 +30,18 @@ if [ $? = 0 ]; then
 fi;
 dfgit checkout
 
+# Hide untracked files from 'git status'
 # dfgit config status.showUntrackedFiles no
+
+# Update profile files
+if [ -f ~/.bashrc ]; then
+    echo "Adding alias to ~/.bashrc"
+    grep -qxF "${myaliasstring}" ~/.bashrc || echo "${myaliasstring}" >> ~/.bashrc
+fi
+if [ -f ~/.zshrc ]; then
+    echo "Adding alias to ~/.zshrc"
+    grep -qxF "${myaliasstring}" ~/.zshrc || echo "${myaliasstring}" >> ~/.zshrc
+fi
+
+echo "Add the following alias to other shell profile scripts:"
+echo "  alias dfgit='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
