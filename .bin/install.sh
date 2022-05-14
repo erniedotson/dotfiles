@@ -1,9 +1,9 @@
 myrepo=git@github.com:erniedotson/dotfiles.git
 mydir=.dotfiles
 
-git clone --bare "${myrepo}" "${HOME}"/${mydir}
+git clone --bare "${myrepo}" "${HOME}/${mydir}"
 function dfgit {
-   /usr/bin/git --git-dir=${HOME}/${mydir}/ --work-tree=${HOME} $@
+   /usr/bin/git --git-dir="${HOME}/${mydir}/" --work-tree="${HOME}" $@
 }
 mkdir -p ~/.dotfiles-backup
 dfgit checkout
