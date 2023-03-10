@@ -3,12 +3,12 @@ myrepo_ssh=git@github.com:erniedotson/dotfiles.git
 mydir=.dotfiles
 
 # Alias, as it should appear in the file:
-#   alias dfgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+#   alias dfgit='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 # NOTE: Careful with escape characters in strings below.
-myaliasstring="alias dfgit='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
+myaliasstring="alias dfgit='git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
 
 function dfgit {
-   /usr/bin/git --git-dir="${HOME}/${mydir}/" --work-tree="${HOME}" $@
+   git --git-dir="${HOME}/${mydir}/" --work-tree="${HOME}" $@
 }
 
 # Using https so we can clone and pull anoynymously
@@ -43,4 +43,4 @@ if [ -f ~/.zshrc ]; then
     grep -qxF "${myaliasstring}" ~/.zshrc || echo "${myaliasstring}" >> ~/.zshrc
 fi
 echo "Add the following alias to other shell profile scripts:"
-echo "  alias dfgit='/usr/bin/git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
+echo "  alias dfgit='git --git-dir=\$HOME/.dotfiles/ --work-tree=\$HOME'"
