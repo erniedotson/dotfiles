@@ -1,11 +1,2 @@
 [core]
 	editor = vim
-[pull]
-	rebase = false
-[fetch]
-	prune = false
-[rebase]
-	autoStash = false
-[user]
-	useConfigOnly = true
-

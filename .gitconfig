@@ -1,0 +1,32 @@
+[alias]
+	pullAll = "!f() { git pull && git submodule update --init --recursive; }; f"
+[core]
+	autocrlf = false
+[diff]
+	tool = kdiff3
+	guitool = kdiff3
+[difftool "kdiff3"]
+	trustExitCode = true
+[fetch]
+	prune = false
+[merge]
+	tool = kdiff3
+	guitool = kdiff3
+[mergetool "kdiff3"]
+	trustExitCode = true
+[pull]
+	rebase = false
+[rebase]
+	autoStash = false
+	autosquash = false
+	updateRefs = false
+[user]
+	useConfigOnly = true
+
+; include OS-specific configs
+[includeIf "gitdir:/Users/"]
+	path = ~/.gitconfig-macos
+[includeIf "gitdir/i:C:/"]
+	path = ~/.gitconfig-windows
+[includeIf "gitdir:/home/"]
+	path = ~/.gitconfig-linux
