@@ -9,6 +9,8 @@
 	trustExitCode = true
 [fetch]
 	prune = false
+[init]
+	templatedir = ~/.config/git/templates
 [merge]
 	tool = kdiff3
 	guitool = kdiff3

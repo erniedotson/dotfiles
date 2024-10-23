@@ -55,6 +55,11 @@ Instead use the alias, `dfgit`, along with any git commands. For example, `git s
 git config --system core.autocrlf false
 ```
 
+## Features
+
+* [DrVanScott/git-clone-init](https://github.com/DrVanScott/git-clone-init) - Automatic setup of user identity (user.email / user.name) on git clone. Just edit `.config/git/templates/git-clone-init`
+
+
 ## References
 
 - [StreakyCobra's response on managing dotfiles | Hacker News](https://news.ycombinator.com/item?id=11070797)
