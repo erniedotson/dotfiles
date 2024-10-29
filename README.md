@@ -41,7 +41,7 @@ Log out and back in for your new dotfiles to be loaded.
 
 The `git` command will not work in your `$HOME` directory because it is not a git repo. An alias saves the day:
 
-`alias dfgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
+`alias dfgit='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'`
 
 Instead use the alias, `dfgit`, along with any git commands. For example, `git status` becomes `dfgit status`.
 
