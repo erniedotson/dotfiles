@@ -22,9 +22,14 @@ git clone --bare "${myrepo_https}" "${HOME}/${mydir}" --config core.autocrlf=fal
 # Test if we need to include the .git dir in --git-dir.
 git --git-dir="${HOME}/${mydir}/.git" --work-tree="${HOME}" status > /dev/null 2>&1 && need_git_dir=true || need_git_dir=false
 
+printf "\nSetting up tracking branch...\n"
+dfgit config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" || exit 1
+dfgit fetch --all || exit 1
+dfgit branch --set-upstream-to origin/master || exit 1
+
 # Add SSH remote, set to default push, in case we want to push changes later.
 # This will require an SSH public key to be registered with GH.
-printf "\nConfiguring repo...\n"
+echo "\nAdding SSH remote...\n"
 dfgit remote add origin-ssh ${myrepo_ssh} || exit 1
 dfgit config remote.pushdefault origin-ssh || exit 1
 
