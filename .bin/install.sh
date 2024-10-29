@@ -17,7 +17,7 @@ function dfgit {
 
 # Using https so we can clone and pull anoynymously
 printf "\nCloning repo...\n"
-git clone --bare "${myrepo_https}" "${HOME}/${mydir}" || exit 1
+git clone --bare "${myrepo_https}" "${HOME}/${mydir}" --config core.autocrlf=false || exit 1
 
 # Test if we need to include the .git dir in --git-dir.
 git --git-dir="${HOME}/${mydir}/.git" --work-tree="${HOME}" status > /dev/null 2>&1 && need_git_dir=true || need_git_dir=false
