@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Naviation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Git
+alias gitroot='cd $(git rev-parse --show-toplevel)'
+
+# dotfiles
+alias dfgit='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
