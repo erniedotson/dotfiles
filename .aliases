@@ -1,4 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    # windows
+    OPENCMD=start
+else
+    # assume linux
+    OPENCMD=open
+fi
 
 # Naviation
 alias ..="cd .."
@@ -15,3 +23,7 @@ alias gitroot='cd $(git rev-parse --show-toplevel)'
 # dotfiles
 alias dfgit='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
+# External apps
+github() { $OPENCMD "https://github.com"; }
+google() { $OPENCMD "https://google.com"; }
+web() { $OPENCMD "https://$1"; }
