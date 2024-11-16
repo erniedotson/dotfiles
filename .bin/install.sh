@@ -5,31 +5,25 @@ IFS=$'\n\t'
 myrepo_https=https://github.com/erniedotson/dotfiles.git
 myrepo_ssh=git@github.com:erniedotson/dotfiles.git
 mydir=.dotfiles
-need_git_dir=false
 
 function dfgit {
-  if [[ "${need_git_dir}" = true ]]; then
-    git --git-dir="${HOME}/${mydir}/.git" --work-tree="${HOME}" $@
-  else
     git --git-dir="${HOME}/${mydir}" --work-tree="${HOME}" $@
-  fi
 }
+
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+  if [[ "$HOME" != "$USERPROFILE"]]; then
+    printf "\nWARNING: Variables HOME [$HOME] and USERPROFILE [$USERPROFILE] differ. Setting HOME to USERPROFILE.\n"
+    HOME="$USERPROFILE"
+  fi
+fi
 
 # Using https so we can clone and pull anoynymously
 printf "\nCloning repo...\n"
-git clone --bare "${myrepo_https}" "${HOME}/${mydir}" --config core.autocrlf=false || exit 1
-
-# Test if we need to include the .git dir in --git-dir.
-git --git-dir="${HOME}/${mydir}/.git" --work-tree="${HOME}" status > /dev/null 2>&1 && need_git_dir=true || need_git_dir=false
-
-printf "\nSetting up tracking branch...\n"
-dfgit config --local --add remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*" || exit 1
-dfgit fetch --all || exit 1
-dfgit branch --set-upstream-to origin/master || exit 1
+git clone --bare "${myrepo_https}" "${HOME}/${mydir}" || exit 1
 
 # Add SSH remote, set to default push, in case we want to push changes later.
 # This will require an SSH public key to be registered with GH.
-echo "\nAdding SSH remote...\n"
+printf "\nConfiguring repo...\n"
 dfgit remote add origin-ssh ${myrepo_ssh} || exit 1
 dfgit config remote.pushdefault origin-ssh || exit 1
 
@@ -50,26 +44,15 @@ fi;
 # dfgit config status.showUntrackedFiles no
 
 # Update profile files
-
-if [[ "${need_git_dir}" = true ]]; then
-  # Alias, as it should appear in the file:
-  #   alias dfgit='git --git-dir=$HOME/.dotfiles/.git --work-tree=$HOME'
-  # NOTE: Careful with escape characters in strings below.
-  myaliasstring="alias dfgit='git --git-dir=\$HOME/.dotfiles/.git --work-tree=\$HOME'"
-else
-  # Alias, as it should appear in the file:
-  #   alias dfgit='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-  # NOTE: Careful with escape characters in strings below.
-  myaliasstring="alias dfgit='git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME'"
+if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+  printf "\nUpdating windows profile...\n"
+  cmd.exe /C "$HOME/.alises.cmd" "-i"
 fi
 
-if [ -f ~/.bashrc ]; then
-  printf "\nAdding alias to ~/.bashrc ...\n"
-  grep -qxF "${myaliasstring}" ~/.bashrc || echo "${myaliasstring}" >> ~/.bashrc
-fi
-if [ -f ~/.zshrc ]; then
-  printf "\nAdding alias to ~/.zshrc ...\n"
-  grep -qxF "${myaliasstring}" ~/.zshrc || echo "${myaliasstring}" >> ~/.zshrc
-fi
-printf "\nOptional: Add the following alias to other shell profile scripts:\n"
+# Alias, as it should appear in the file:
+#   alias dfgit='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# NOTE: Careful with escape characters in strings below.
+myaliasstring="alias dfgit='git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME'"
+
+printf "\nOptional: Add the following alias to your shell profile rc scripts:\n"
 printf "  ${myaliasstring}\n\n"
