@@ -11,15 +11,15 @@ function dfgit {
 }
 
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
-  if [[ "$HOME" != "$USERPROFILE"]]; then
-    printf "\nWARNING: Variables HOME [$HOME] and USERPROFILE [$USERPROFILE] differ. Setting HOME to USERPROFILE.\n"
-    HOME="$USERPROFILE"
+  if [[ "${HOME}" != "${USERPROFILE}" ]]; then
+    printf "\nWARNING: Variables HOME [%s] and USERPROFILE [%s] differ. Setting HOME to USERPROFILE.\n" ${HOME} ${USERPROFILE}
+    HOME=${USERPROFILE}
   fi
 fi
 
 # Using https so we can clone and pull anoynymously
 printf "\nCloning repo...\n"
-git clone --bare "${myrepo_https}" "${HOME}/${mydir}" || exit 1
+git clone --bare "${myrepo_https}" "${HOME}/${mydir}" --config core.autocrlf=false || exit 1
 
 # Add SSH remote, set to default push, in case we want to push changes later.
 # This will require an SSH public key to be registered with GH.
@@ -46,7 +46,7 @@ fi;
 # Update profile files
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
   printf "\nUpdating windows profile...\n"
-  cmd.exe /C "$HOME/.alises.cmd" "-i"
+  ~/.aliases.cmd -i
 fi
 
 # Alias, as it should appear in the file:
@@ -56,3 +56,4 @@ myaliasstring="alias dfgit='git --git-dir=\$HOME/.dotfiles --work-tree=\$HOME'"
 
 printf "\nOptional: Add the following alias to your shell profile rc scripts:\n"
 printf "  ${myaliasstring}\n\n"
+

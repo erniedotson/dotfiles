@@ -2,3 +2,15 @@
 .aliases.extra.cmd
 .config/git/templates/git-clone-init
 .dotfiles/
+
+# Windows Files
+AppData/*
+Application Data/*
+Local Settings/*
+NetHood/*
+NTUSER.DAT*
+ntuser.dat*
+ntuser.ini
+PrintHood/*
+Recent/*
+
