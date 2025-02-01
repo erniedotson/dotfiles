@@ -27,3 +27,7 @@ alias dfgit='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 github() { $OPENCMD "https://github.com"; }
 google() { $OPENCMD "https://google.com"; }
 web() { $OPENCMD "https://$1"; }
+
+# Load extras
+[ -f "$HOME/.aliases.extra" ] && source "$HOME/.aliases.$HOSTNAME"
+[ -f "$HOME/.aliases.extra" ] && source "$HOME/.aliases.extra"

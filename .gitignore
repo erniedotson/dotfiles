@@ -1,4 +1,5 @@
 # *
+.aliases.extra
 .aliases.extra.cmd
 .config/git/templates/git-clone-init
 .dotfiles/
