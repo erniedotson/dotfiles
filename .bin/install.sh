@@ -46,7 +46,7 @@ fi;
 # Update profile files
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
   printf "\nUpdating windows profile...\n"
-  ~/.aliases.cmd -i
+  ~/.profile.cmd -i
 fi
 
 # Alias, as it should appear in the file:
