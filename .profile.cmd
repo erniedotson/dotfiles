@@ -28,6 +28,12 @@ if not "%HOME%"=="" (
 )
 set HOME=%USERPROFILE%
 
+rem MARK: Apache Ant
+rem Add the color logger arguments
+set ANT_ARGS=-logger org.apache.tools.ant.listener.AnsiColorLogger
+rem Load user overrides
+set ANT_OPTS=-Dant.logger.defaults=%USERPROFILE%/.config/ant/ant-colors.properties
+
 rem Load aliases
 if exist "%USERPROFILE%\.aliases.cmd" (
     call "%USERPROFILE%\.aliases.cmd"
