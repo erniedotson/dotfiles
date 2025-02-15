@@ -29,5 +29,5 @@ google() { $OPENCMD "https://google.com"; }
 web() { $OPENCMD "https://$1"; }
 
 # Load extras
-[ -f "$HOME/.aliases.extra" ] && source "$HOME/.aliases.$HOSTNAME"
+[ -f "$HOME/.aliases.$HOSTNAME" ] && source "$HOME/.aliases.$HOSTNAME"
 [ -f "$HOME/.aliases.extra" ] && source "$HOME/.aliases.extra"
