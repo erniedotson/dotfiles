@@ -1,5 +1,12 @@
 [alias]
+	cleanup-branches = !git branch --v | grep \"\\\\[gone\\\\]\" | awk \"{print \\$1}\" | xargs git branch -D
+	fap = fetch --all --prune
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	pullAll = "!f() { git pull && git submodule update --init --recursive; }; f"
+	reviewMain = "!f() { git log -p --reverse \"$@\" origin/master...HEAD; }; f"
+	reviewMaster = "!f() { git log -p --reverse \"$@\" origin/master...HEAD; }; f"
+	unstage = git restore --staged
 [core]
 	autocrlf = false
 [diff]
