@@ -1,6 +1,6 @@
 [alias]
-	cleanup-branches = !git branch --v | grep \"\\\\[gone\\\\]\" | awk \"{print \\$1}\" | xargs git branch -D
 	fap = fetch --all --prune
+	gone = !git branch --v | grep \"\\\\[gone\\\\]\" | awk \"{print \\$1}\" | xargs git branch -D
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 	pullAll = "!f() { git pull && git submodule update --init --recursive; }; f"
