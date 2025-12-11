@@ -29,6 +29,8 @@ github() { $OPENCMD "https://github.com"; }
 google() { $OPENCMD "https://google.com"; }
 web() { $OPENCMD "https://$1"; }
 
+alias pandock='docker run --rm -v "$(pwd):/data" -u $(id -u):$(id -g) pandoc/latex'
+
 # Load extras
 [ -f "$HOME/.aliases.$HOSTNAME" ] && source "$HOME/.aliases.$HOSTNAME"
 [ -f "$HOME/.aliases.extra" ] && source "$HOME/.aliases.extra"
