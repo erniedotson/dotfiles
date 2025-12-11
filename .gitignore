@@ -1,6 +1,7 @@
 # *
 .aliases.extra
 .aliases.extra.cmd
+.bashrc_extra
 .config/git/templates/git-clone-init
 .dotfiles/
 
