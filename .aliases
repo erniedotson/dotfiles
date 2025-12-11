@@ -3,6 +3,7 @@
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
     # windows
     OPENCMD=start
+    alias uptime="systeminfo | grep 'System Boot Time'"
 else
     # assume linux
     OPENCMD=open

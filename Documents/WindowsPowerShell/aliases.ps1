@@ -6,3 +6,7 @@ ${function:...} = { Set-Location ..\.. }
 ${function:....} = { Set-Location ..\..\.. }
 ${function:.....} = { Set-Location ..\..\..\.. }
 ${function:......} = { Set-Location ..\..\..\..\.. }
+
+# MARK: Linux alternatives
+
+${function:uptime} = { systeminfo | Select-String -Pattern "System Boot Time" }

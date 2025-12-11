@@ -22,3 +22,8 @@ if exist "%USERPROFILE%\.aliases.%COMPUTERNAME%.cmd" (
 if exist "%USERPROFILE%\.aliases.extra.cmd" (
     call "%USERPROFILE%\.aliases.extra.cmd"
 )
+
+rem MARK: Linux alternatives
+
+rem systeminfo | find "System Boot Time"
+DOSKEY uptime=systeminfo ^| find "System Boot Time"
