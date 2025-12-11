@@ -15,15 +15,20 @@
 	guitool = kdiff3
 [difftool "kdiff3"]
 	trustExitCode = true
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
 [fetch]
 	prune = false
 [init]
 	templatedir = ~/.config/git/templates
 [merge]
 	tool = kdiff3
+	# tool = vscode
 	guitool = kdiff3
 [mergetool "kdiff3"]
 	trustExitCode = true
+[mergetool "vscode"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 [pull]
 	rebase = false
 [rebase]
