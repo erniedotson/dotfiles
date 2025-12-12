@@ -2,21 +2,21 @@ if [ -f "$HOME/.bashrc_extra" ]; then
 	. "$HOME/.bashrc_extra"
 fi
 
+# MARK: Append PATH
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
+if ! [[ "$PATH" =~ "/home/linuxbrew/.linxbrew/bin:" ]]; then
+    PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+fi
 export PATH
 
+# MARK: Load aliases
 if [ -f "$HOME/.bash_aliases" ]; then
 	. "$HOME/.bash_aliases"
 fi
 
 # MARK: Load apps
-
-# direnv
-if command -v direnv >/dev/null 2>&1; then
-	eval "$(direnv hook bash)"
-fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
@@ -44,6 +44,11 @@ fi
 # thefuck
 if command -v thefuck >/dev/null 2>&1; then
 	eval $(thefuck --alias)
+fi
+
+# direnv - Load last
+if command -v direnv >/dev/null 2>&1; then
+	eval "$(direnv hook bash)"
 fi
 
 # MARK: ssh GitBash Windows
