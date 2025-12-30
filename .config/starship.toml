@@ -1,96 +1,328 @@
+# ==============================================================================
+# Starship prompt configuration using Nord Frost or Aurora color themes
+# File: ~/.config/starship.toml
+# Docs: https://starship.rs/config/
+#       https://www.nordtheme.com/
+# Author: Ernie Dotson
+# Updated: 2025-12-29
+# Prerequisites:
+# - Starship installed and configured in your shell
+# - A Nerd Font installed and enabled in your terminal
+# Notes: Adjust the value of 'palette' below to one of the custom palettes
+# ==============================================================================
+
+# ==============================================================================
+# MARK: Schema
+# ==============================================================================
+
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
+# ==============================================================================
+# MARK: Prompt
+# ==============================================================================
+
+format = """[](segment1)\
+$os\
+$username(bg:segment1 fg:text)\
+$hostname\
+[](bg:segment2 fg:segment1)\
+$directory\
+[](bg:segment3 fg:segment2)\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+[](bg:segment4 fg:segment3)\
+$docker_context\
+$package$\
+c$\
+cmake\
+$cobol\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$gleam\
+$golang\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$gradle\
+$lua\
+$nim\
+$nodejs\
+$ocaml\
+$opa\
+$perl\
+$php\
+$pulumi\
+$purescript\
+$python\
+$quarto\
+$raku\
+$rlang\
+$red\
+$ruby\
+$rust\
+$scala\
+$solidity\
+$swift\
+$terraform\
+$typst\
+$vlang\
+$vagrant\
+$zig\
+$buf\
+$direnv\
+[](bg:segment5 fg:segment4)\
+$sudo\
+$cmd_duration\
+[](fg:segment5)\
+$line_break\
+$jobs\
+$battery\
+$time\
+$status\
+$container\
+$netns\
+$shell\
+$character"""
+
 add_newline = true
 
-# Replace the "❯" symbol in the prompt with "➜"
-[character] # The name of the module we are configuring is "character"
-success_symbol = "[➜](bold green)" # The "success_symbol" segment is being set to "➜" with the color "bold green"
+# MARK: Set either palette
+palette = "nord_frost"
+# palette = "nord_aurora"
 
-# Disable the package module, hiding it from the prompt completely
-#[package]
-#disabled = true
+# Define the custom Nord palettes
+# See: https://www.nordtheme.com/docs/colors-and-palettes
 
-[sudo]
+[palettes.nord_frost]
+text = "#2e3440" # nord0
+segment1 = "#5e81ac" # nord10
+segment2 = "#81a1c1" # nord9
+segment3 = "#88c0d0" # nord8
+segment4 = "#8fbcbb" # nord7
+segment5 = "#d8dee9" # nord4
+success = "#a3be8c" # nord14
+failure = "#bf616a" # nord11
+
+[palettes.nord_aurora]
+text = "#2e3440" # nord0
+segment1 = "#bf616a" # nord11
+segment2 = "#d08770" # nord12
+segment3 = "#ebcb8b" # nord13
+segment4 = "#a3be8c" # nord14
+segment5 = "#b48ead" # nord15
+success = "#a3be8c" # nord14
+failure = "#bf616a" # nord11
+
+# ==============================================================================
+# MARK: Modules
+# ==============================================================================
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[c]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[character]
+success_symbol = '[󱞩](bold success)'
+error_symbol = '[✗](bold failure)'
+vimcmd_symbol = "[ 󱞩](bold success)"
+
+[cmake]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[cmd_duration]
+format = "[ 󰔚 $duration ]($style)"
+style = "fg:text bg:segment5"
+
+[directory]
+style = "fg:text bg:segment2"
+read_only = " "
+format = "[ 󰉋 $path ]($style)[$read_only]($read_only_style)"
+read_only_style = "fg:text bold bg:segment2"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[direnv]
+disabled = true
+
+[docker_context]
+symbol = " "
+
+[git_branch]
+symbol = " "
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+style = "fg:text bg:segment3"
+
+[git_commit]
+tag_symbol = '  '
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+style = "fg:text bg:segment3"
+
+[git_metrics]
+disabled = true
+
+[git_state]
+format = "[ $symbol$branch(:$remote_branch) ]($style)"
+style = "fg:text bg:segment3"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style))'
+# style = "fg:text bg:segment3"
+style = "fg:bold bg:segment3"
+
+[golang]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[hostname]
+ssh_only = true
+style = "fg:text bg:segment1"
+# format = "[$ssh_symbol$hostname ]($style)"
+format = "[@$hostname ]($style)"
+ssh_symbol = " "
+
+[java]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[memory_usage]
+symbol = " "
+
+[nodejs]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[os]
+style = "fg:text bg:segment1"
 disabled = false
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+# AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+
+[package]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[php]
+symbol = ""
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[python]
+symbol = '󰌠 '
+style = "fg:text bg:segment4"
+format = '[ ${symbol}${pyenv_prefix}(${version} )(\($virtualenv\))]($style)'
+
+[ruby]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
+
+[rust]
+symbol = " "
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
 
 [shell]
-fish_indicator = ''
+bash_indicator = ''
+fish_indicator = '󰈺 '
 powershell_indicator = '_'
 unknown_indicator = 'mystery shell'
-style = 'cyan bold'
+zsh_indicator = ''
+style = "segment1"
 disabled = false
 
-### NerdFont Preset Begin ###
+[sudo]
+symbol = " "
+style = "fg:text bg:segment5"
+format = "[ $symbol]($style)"
+allow_windows = true
+disabled = false
 
-# [aws]
-# symbol = "  "
+[username]
+show_always = false
+format = '[$user]($style)'
+style_user = "fg:text bg:segment1"
+style_root = "fg:text bg:segment1"
 
-# [buf]
-# symbol = " "
-
-# [c]
-# symbol = " "
-
-# [conda]
-# symbol = " "
-
-# [dart]
-# symbol = " "
-
-# [directory]
-# read_only = " "
-
-# [docker_context]
-# symbol = " "
-
-# [elixir]
-# symbol = " "
-
-# [elm]
-# symbol = " "
-
-# [git_branch]
-# symbol = " "
-
-# [golang]
-# symbol = " "
-
-# [haskell]
-# symbol = " "
-
-# [hg_branch]
-# symbol = " "
-
-# [java]
-# symbol = " "
-
-# [julia]
-# symbol = " "
-
-# [memory_usage]
-# symbol = " "
-
-# [nim]
-# symbol = " "
-
-# [nix_shell]
-# symbol = " "
-
-# [nodejs]
-# symbol = " "
-
-# [package]
-# symbol = " "
-
-# [python]
-# symbol = " "
-
-# [spack]
-# symbol = "🅢 "
-
-# [rust]
-# symbol = " "
-
-### NerdFont Preset End ###
+[vagrant]
+# symbol = ' '
+format = '[ $symbol($version )]($style)'
+style = "fg:text bg:segment4"
