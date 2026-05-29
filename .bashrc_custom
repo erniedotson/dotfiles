@@ -60,29 +60,31 @@ if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
 	SSH_ENV="$HOME/.ssh/environment"
 
 	function run_ssh_env {
-	. "${SSH_ENV}" > /dev/null
+		. "${SSH_ENV}" > /dev/null
 	}
 
 	function start_ssh_agent {
-	echo "Initializing new SSH agent..."
-	ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-	echo "succeeded"
-	chmod 600 "${SSH_ENV}"
+		echo "Initializing new SSH agent..."
+		ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+		echo "succeeded"
+		chmod 600 "${SSH_ENV}"
 
-	run_ssh_env;
+		run_ssh_env;
 
-	#   ssh-add ~/.ssh/id_rsa;
-	#   ssh-add ~/.ssh/id_ed25519;
-	ssh-add;
+		#   ssh-add ~/.ssh/id_rsa;
+		#   ssh-add ~/.ssh/id_ed25519;
+		ssh-add;
+		key="$HOME/.ssh/${USERNAME}+$(date +%Y)@${HOSTNAME}"
+		[ -f "$key" ] && ssh-add "$key"
 	}
 
 	if [ -f "${SSH_ENV}" ]; then
-	run_ssh_env;
-	ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-		start_ssh_agent;
-	}
+		run_ssh_env;
+		kill -0 "$SSH_AGENT_PID" 2>/dev/null || {
+			start_ssh_agent;
+		}
 	else
-	start_ssh_agent;
+		start_ssh_agent;
 	fi
 
 	###############################################################################
