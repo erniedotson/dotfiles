@@ -54,39 +54,21 @@ fi
 # MARK: ssh GitBash Windows
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
 	###############################################################################
-	# Start SSH Agent for Git Bash on Windows
-	# See: https://gist.github.com/jherax/979d052ad5759845028e6742d4e2343b
+	# Use Windows native OpenSSH agent instead of starting a separate Git Bash
+	# agent. Ensures consistent key access across all terminals (Git Bash,
+	# PowerShell, cmd) and works with Vagrant's winssh communicator.
+	# Prerequisite: enable the "OpenSSH Authentication Agent" Windows service:
+	#   Set-Service ssh-agent -StartupType Automatic; Start-Service ssh-agent
 	###############################################################################
-	SSH_ENV="$HOME/.ssh/environment"
+	export PATH="/c/Windows/System32/OpenSSH:$PATH"
+	export SSH_AUTH_SOCK="//./pipe/openssh-ssh-agent"
 
-	function run_ssh_env {
-		. "${SSH_ENV}" > /dev/null
-	}
-
-	function start_ssh_agent {
-		echo "Initializing new SSH agent..."
-		ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-		echo "succeeded"
-		chmod 600 "${SSH_ENV}"
-
-		run_ssh_env;
-
-		#   ssh-add ~/.ssh/id_rsa;
-		#   ssh-add ~/.ssh/id_ed25519;
-		ssh-add;
+	# Load keys if the agent is running but empty (exit 1 = no keys, exit 2 = no agent)
+	ssh-add -l &>/dev/null
+	if [ $? -eq 1 ]; then
+		ssh-add 2>/dev/null
 		key="$HOME/.ssh/${USERNAME}+$(date +%Y)@${HOSTNAME}"
 		[ -f "$key" ] && ssh-add "$key"
-	}
-
-	if [ -f "${SSH_ENV}" ]; then
-		run_ssh_env;
-		kill -0 "$SSH_AGENT_PID" 2>/dev/null || {
-			start_ssh_agent;
-		}
-	else
-		start_ssh_agent;
 	fi
-
-	###############################################################################
 	###############################################################################
 fi
