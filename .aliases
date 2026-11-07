@@ -14,6 +14,9 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+mkcd() {
+    mkdir -p -- "$1" && cd -P -- "$1"
+}
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '

@@ -5,6 +5,7 @@ doskey ..=cd ..
 doskey ...=cd ../..
 doskey ....=cd ../../..
 doskey .....=cd ../../../..
+doskey mkcd=(if not exist $* mkdir $*) ^&^& cd /d $*
 
 rem MARK: dotfiles
 if exist "%USERPROFILE%\.dotfiles" doskey dfgit=git --git-dir^="%USERPROFILE%\.dotfiles" --work-tree^="%USERPROFILE%" $*

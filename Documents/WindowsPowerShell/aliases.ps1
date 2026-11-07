@@ -6,6 +6,11 @@ ${function:...} = { Set-Location ..\.. }
 ${function:....} = { Set-Location ..\..\.. }
 ${function:.....} = { Set-Location ..\..\..\.. }
 ${function:......} = { Set-Location ..\..\..\..\.. }
+${function:mkcd} = {
+    param([string]$Path)
+    New-Item -ItemType Directory -Force -Path $Path -ErrorAction Stop | Out-Null
+    Set-Location -LiteralPath $Path
+}
 
 # MARK: Linux alternatives
 
